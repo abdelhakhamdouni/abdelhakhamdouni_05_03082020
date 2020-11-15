@@ -15,13 +15,13 @@
  #### cloner le projet :
     git clone https://github.com/abdelhakhamdouni/abdelhakhamdouni_05_03082020.git
    
-ensuite dans le terminal accereder au projet 
-  cd frontend
-  npm install 
-  npm start
-  cd ../backend
-  npm install
-  npm start
+ ensuite dans le terminal accereder au projet 
+    cd frontend
+    npm install 
+    npm start
+    cd ../backend
+    npm install
+    npm start
   
   ouvrir le fichier 
   /frontend/dist/index.html
