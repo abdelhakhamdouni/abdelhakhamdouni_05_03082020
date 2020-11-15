@@ -1,42 +1,51 @@
 import DataHandler from "./dataHandler"
 
-export function getPanier(str){
-     /***
-     * get panier count 
-     */
+/**
+ * 
+ * @param {String} str key in localstorage
+ * change nombre of basket in the navbar
+ */
+export function getPanier(str) {
+
     let panierElement = document.querySelector('#panier')
     let panier = 0
-     if( localStorage.getItem(str)){
-       let produit_count = JSON.parse(localStorage.getItem(str))
-       produit_count.forEach(element=>{
+    if (localStorage.getItem(str)) {
+        let produit_count = JSON.parse(localStorage.getItem(str))
+        produit_count.forEach(element => {
             panier += element.count
-       })
+        })
         panierElement.innerHTML = panier
-     }else{
+    } else {
         panierElement.innerHTML = panier
-     }
-     return panier
+    }
+    return panier
 }
 
-export function getproductsFromStorage(str){
+/**
+ * 
+ * @param {String} str key of entree in localstorage
+ * get products from localstorage width key
+ */
+
+export function getproductsFromStorage(str) {
     let products = ""
-    if( window.localStorage.getItem(str) ){
+    if (window.localStorage.getItem(str)) {
         products = JSON.parse(window.localStorage.getItem(str))
-        if(products.length > 0){
-            products.forEach(produit=>{
+        if (products.length > 0) {
+            products.forEach(produit => {
                 produit.price = produit.price
             })
             return products
-            
+
         }
-        else{
+        else {
             return false
         }
     }
-    else{
+    else {
         return products
     }
-    
+
 }
 
 export function panierButtonAction() {
@@ -60,10 +69,7 @@ export function panierButtonAction() {
  * 
  */
 export function productElementHandler(content, data) {
-
     let datahandler = new DataHandler()
-
-    
     let addtobasket = document.querySelector('#addToBasket');
     let selecColor = document.querySelector('#select-color');
     let panierElement = document.querySelector('#panier');
@@ -88,15 +94,19 @@ export function productElementHandler(content, data) {
 }
 
 /**
- * 
  * @param {string} str name of the data to remove
+ * erase localstorage
  */
-export function errazePanier(str){
+export function errazePanier(str) {
     window.localStorage.removeItem(str)
     getPanier(str)
 }
 
-
-export function toEuro(number){
-    return number.toString().slice(0,-2) +","+ number.toString().slice(-2)
+/**
+ * 
+ * @param {Numbre} number transform Nubre in euro form
+ * @returns {Number} number weth two digits after coma
+ */
+export function toEuro(number) {
+    return number.toString().slice(0, -2) + "," + number.toString().slice(-2)
 }

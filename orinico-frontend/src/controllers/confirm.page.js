@@ -12,10 +12,8 @@ let lastorder_id = JSON.parse(localStorage.getItem('lastOrder'))
 let order_id = lastorder_id.orderId
 console.log(lastorder_id)
 ////////////////////////////////////////////////////////////
-let lastOrder = orders[orders.length -1 ]
-
+let lastOrder = orders[orders.length - 1]
 let products = lastOrder.products
-
 
 /**
  * recuperer les articles dans le panier
@@ -34,15 +32,15 @@ content = `
 <div class="m-5" style="height:1px; width: 100%; background-color: gray;"></div>
 <h2 class="text-center w-100 my-2">Mes coordonnées</h2>
 
-    <p  class="pl-5"><strong style="font-size: 1em; ">Nom: </strong> ${lastOrder.lastName +' ' +lastOrder.firstName} </p>
+    <p  class="pl-5"><strong style="font-size: 1em; ">Nom: </strong> ${lastOrder.lastName + ' ' + lastOrder.firstName} </p>
     <p  class="pl-5">
         <span class=""><strong style="font-size: 1em; ">Téléphone: </strong>${lastOrder.telephone}</span>
     </p>    
     <p class="pl-5">
         <span class=""><strong style="font-size: 1em; ">E-mail: </strong>${lastOrder.email}</span>
     </p>    
-    <p  class="pl-5"><strong style="font-size: 1em; ">Adressede livraison: </strong>${lastOrder.address 
-        + ' ' + lastOrder.city + ' ' + lastOrder['code-postale']}</p>
+    <p  class="pl-5"><strong style="font-size: 1em; ">Adressede livraison: </strong>${lastOrder.address
+    + ' ' + lastOrder.city + ' ' + lastOrder['code-postale']}</p>
 </div>
 <div class="row bg-light">
 
@@ -58,9 +56,9 @@ content = `
                 </thead>
             <tbody>`
 
-    products.forEach(element => {
-        total += (element.count * element.price)
-        content += `
+products.forEach(element => {
+    total += (element.count * element.price)
+    content += `
         <tr>
         <td class="border">${element.name}</td>
         <td class="border">
@@ -70,9 +68,9 @@ content = `
         <td class="border text-right">${toEuro(element.price * element.count)}</td>
     </tr>
         `
-    });
+});
 
- content += `<tr class="bg-light">
+content += `<tr class="bg-light">
                 <td colspan="3" class="text-right"><strong>Total</strong></td>
                 <td class="border bg-light text-right"><strong>${toEuro(total)}€</strong></td>
                 </tr>
@@ -86,6 +84,6 @@ content = `
 controllerView.render('main', content)
 errazePanier('products')
 
-document.querySelector('#imprimer').addEventListener('click', ()=>{
+document.querySelector('#imprimer').addEventListener('click', () => {
     window.print()
 })

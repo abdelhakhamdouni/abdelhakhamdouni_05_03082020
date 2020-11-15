@@ -5,13 +5,11 @@
  * send data after check is ok
  */
 export default class FormHandler {
-
-    /**
-     * 
-     * @param {HTMLelement} element 
-     * @param {HTMLInputElement type} type 
-     * check the input data of a type 
-     */
+  /**
+   * @param {HTMLelement} element 
+   * @param {HTMLInputElement type} type 
+   * check the input data of a type 
+   */
   formValidate(element, type) {
     let formvalide = [];
     if (element.getAttribute("id") === "address") {
@@ -70,13 +68,12 @@ export default class FormHandler {
   }
 
   /**
-   * 
    * @param {HTMLElement} element 
    * @param {RegExp} re 
    * @param {Boolean} formvalide 
    * log error and return true or false 
    */
-  onError (element, re, formvalide) {
+  onError(element, re, formvalide) {
     console.log(element.getAttribute("id"));
     if (!re.test(element.value)) {
       element.classList.add("error");
@@ -119,11 +116,11 @@ export default class FormHandler {
    */
   async sendOrder(ele, produtcs_) {
     let orderData = {};
-    
+
     orderData.products = produtcs_;
     let contact = {}
-    
-    
+
+
     let date = new Date();
     let curentDate =
       date.getDate() +
@@ -132,8 +129,8 @@ export default class FormHandler {
       "-" +
       date.getFullYear();
     let curentTime = date.getHours() + "H:" + date.getMinutes() + "m";
-    orderData["date"] = curentDate + " " + curentTime; 
-    
+    orderData["date"] = curentDate + " " + curentTime;
+
     document.querySelectorAll(ele).forEach((element) => {
       orderData[element.getAttribute("id")] = element.value;
       /**
@@ -149,12 +146,12 @@ export default class FormHandler {
     } else {
       window.localStorage.setItem("order", JSON.stringify([orderData]));
     }
-   
+
     /**
      * get list of products id and create the array
      */
     let products = [];
-    orderData.products.forEach(prod =>{
+    orderData.products.forEach(prod => {
       products.push(prod._id)
     })
     /**
@@ -162,26 +159,26 @@ export default class FormHandler {
    * do post request to the api 
    */
     return fetch('http://localhost:3000/api/teddies/order',
-        { 
-          headers: {
-            "Content-type" : "application/json"
+      {
+        headers: {
+          "Content-type": "application/json"
+        },
+        method: 'post',
+        body: JSON.stringify({
+          contact: {
+            lastName: orderData.lastName,
+            firstName: orderData.firstName,
+            city: orderData.city,
+            email: orderData.email,
+            address: orderData.address,
           },
-          method: 'post',
-          body: JSON.stringify({
-            contact:{
-                lastName: orderData.lastName,
-                firstName: orderData.firstName,
-                city: orderData.city,
-                email: orderData.email,
-                address: orderData.address,
-            },
-            products: products
-          }),
-        }
+          products: products
+        }),
+      }
     )
-  
 
-  
-  
+
+
+
   }
 }

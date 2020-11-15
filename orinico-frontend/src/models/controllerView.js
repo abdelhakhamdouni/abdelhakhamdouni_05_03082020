@@ -1,4 +1,4 @@
-import {getPanier, changeProduit} from './utils';
+import { getPanier, changeProduit } from './utils';
 
 class ControllerView {
 
@@ -6,7 +6,7 @@ class ControllerView {
      * @param {HTMLElement } element 
      * @param {HTMLContent} content 
      */
-    render(element, content){
+    render(element, content) {
         document.querySelector(element).innerHTML = content
     }
 }
