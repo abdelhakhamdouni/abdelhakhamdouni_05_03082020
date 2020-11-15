@@ -17,12 +17,12 @@
    
  Eensuite dans le terminal accereder au projet 
  
-    cd frontend
-    npm install 
-    npm start
-    cd ../backend
-    npm install
-    npm start
+    $ cd frontend
+    $ npm install 
+    $ npm start
+    $ cd ../backend
+    $ npm install
+    $ npm start
   
   ouvrir le fichier 
   
