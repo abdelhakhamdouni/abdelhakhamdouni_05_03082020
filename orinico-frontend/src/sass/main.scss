@@ -2,10 +2,10 @@ body {
   background-color: rgb(56, 55, 55);
   min-height: 100vh;
 }
-.header-hiro{
+.header-hiro {
   width: 100%;
   height: 30rem;
-  background-image: url('../images/teddy_4.jpg');
+  background-image: url("../images/teddy_4.jpg");
   position: relative;
   top: -60px;
   background-size: cover;
@@ -48,12 +48,12 @@ main {
   align-items: center;
   flex-direction: column;
 }
-p{
+p {
   width: 100% !important;
 }
-.row{
+.row {
   width: 100% !important;
-} 
+}
 @media (min-width: 576px) {
   .card-deck {
     justify-content: center;
@@ -80,54 +80,56 @@ p{
     width: 100%;
   }
 }
-strong{
-    font-size: 2em;
+strong {
+  font-size: 2em;
 }
 
-td img{
-    width: 6em;
+td img {
+  width: 6em;
 }
-th,td{
-    text-align: center;
-}
-
-.count{
-    border: 1px solid rgb(117, 115, 115);
-    padding: 4px;
-    margin: 0;
-    width: 2em;
-    display: inline-block;
+th,
+td {
+  text-align: center;
 }
 
-.js_moins, .js_plus{
-    border-width: 2px;
-    cursor: pointer;
-    margin: -3px;
+.count {
+  border: 1px solid rgb(117, 115, 115);
+  padding: 4px;
+  margin: 0;
+  width: 2em;
+  display: inline-block;
 }
 
-.sous-total{
-    border-left: 3px solid rgb(214, 213, 213);
-    text-align: right;
-    padding-right: 2em;
+.js_moins,
+.js_plus {
+  border-width: 2px;
+  cursor: pointer;
+  margin: -3px;
 }
 
-.alert{
+.sous-total {
+  border-left: 3px solid rgb(214, 213, 213);
+  text-align: right;
+  padding-right: 2em;
+}
+
+.alert {
   display: none;
 }
 
-.error ~ .alert{
+.error ~ .alert {
   display: block;
 }
 
-input{
-  position: relative;;
-}
-
-.form-group{
+input {
   position: relative;
 }
 
-.valide + .validecheck{
+.form-group {
+  position: relative;
+}
+
+.valide + .validecheck {
   display: inline-block;
   width: 15px;
   height: 10px;

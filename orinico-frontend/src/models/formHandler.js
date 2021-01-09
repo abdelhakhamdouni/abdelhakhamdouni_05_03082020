@@ -1,14 +1,17 @@
 /**
  * class to handel form
- * check for error 
+ * check for error
  * log error
  * send data after check is ok
  */
+
+ const API_URL = "https://teddies-api.herokuapp.com/api/teddies"
+
 export default class FormHandler {
   /**
-   * @param {HTMLelement} element 
-   * @param {HTMLInputElement type} type 
-   * check the input data of a type 
+   * @param {HTMLelement} element
+   * @param {HTMLInputElement type} type
+   * check the input data of a type
    */
   formValidate(element, type) {
     let formvalide = [];
@@ -68,10 +71,10 @@ export default class FormHandler {
   }
 
   /**
-   * @param {HTMLElement} element 
-   * @param {RegExp} re 
-   * @param {Boolean} formvalide 
-   * log error and return true or false 
+   * @param {HTMLElement} element
+   * @param {RegExp} re
+   * @param {Boolean} formvalide
+   * log error and return true or false
    */
   onError(element, re, formvalide) {
     console.log(element.getAttribute("id"));
@@ -93,9 +96,9 @@ export default class FormHandler {
   }
 
   /**
-   * 
-   * @param {HTMLelement} element 
-   * @param {Boolean} valide 
+   *
+   * @param {HTMLelement} element
+   * @param {Boolean} valide
    * check if form is valid and enabel button submit
    */
 
@@ -109,17 +112,16 @@ export default class FormHandler {
   }
 
   /**
-   * 
-   * @param { HTMLelement from } ele 
-   * @param { Object } produtcs 
+   *
+   * @param { HTMLelement from } ele
+   * @param { Object } produtcs
    * get product ordered from localstorage and make order
    */
   async sendOrder(ele, produtcs_) {
     let orderData = {};
 
     orderData.products = produtcs_;
-    let contact = {}
-
+    let contact = {};
 
     let date = new Date();
     let curentDate =
@@ -138,7 +140,6 @@ export default class FormHandler {
        */
     });
 
-
     if (window.localStorage.getItem("order")) {
       let myOrder = JSON.parse(window.localStorage.getItem("order"));
       myOrder.push(orderData);
@@ -151,34 +152,28 @@ export default class FormHandler {
      * get list of products id and create the array
      */
     let products = [];
-    orderData.products.forEach(prod => {
-      products.push(prod._id)
-    })
+    orderData.products.forEach((prod) => {
+      products.push(prod._id);
+    });
     /**
-   * 
-   * do post request to the api 
-   */
-    return fetch('http://localhost:3000/api/teddies/order',
-      {
-        headers: {
-          "Content-type": "application/json"
+     *
+     * do post request to the api
+     */
+    return fetch(API_URL + "/order", {
+      headers: {
+        "Content-type": "application/json",
+      },
+      method: "post",
+      body: JSON.stringify({
+        contact: {
+          lastName: orderData.lastName,
+          firstName: orderData.firstName,
+          city: orderData.city,
+          email: orderData.email,
+          address: orderData.address,
         },
-        method: 'post',
-        body: JSON.stringify({
-          contact: {
-            lastName: orderData.lastName,
-            firstName: orderData.firstName,
-            city: orderData.city,
-            email: orderData.email,
-            address: orderData.address,
-          },
-          products: products
-        }),
-      }
-    )
-
-
-
-
+        products: products,
+      }),
+    });
   }
 }

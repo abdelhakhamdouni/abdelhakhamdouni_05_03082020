@@ -1,16 +1,16 @@
-import '../sass/main.scss';
-import ControllerView from '../models/controllerView';
-import  FormHandler from '../models/formHandler';
-import {getPanier, getproductsFromStorage, toEuro} from '../models/utils';
+import "../sass/main.scss";
+import ControllerView from "../models/controllerView";
+import FormHandler from "../models/formHandler";
+import { getPanier, getproductsFromStorage, toEuro } from "../models/utils";
 
-getPanier('products');
+getPanier("products");
 
 let total = 0;
-let formHandler = new FormHandler()
+let formHandler = new FormHandler();
 /**
  * get products in basket
  */
-let products = getproductsFromStorage('products')
+let products = getproductsFromStorage("products");
 
 let content = `
 <section class="row w-100 bg-light p-5">
@@ -74,27 +74,32 @@ let content = `
             <th class="border">Prix</th>
             <th class=" border text-right">Sous-total</th>
         </thead>
-        <tbody>` 
-    
-        products.forEach(element => {
-            total += (element.count * element.price)
-            content += `
+        <tbody>`;
+
+products.forEach((element) => {
+  total += element.count * element.price;
+  content += `
                         <tr>
-                            <td class="border"><img src="${element.imageUrl}" alt="${element.name}"></td>
+                            <td class="border"><img src="${
+                              element.imageUrl
+                            }" alt="${element.name}"></td>
                             <td class="border">${element.name}</td>
                             <td class="border">
                                 <span class="">${element.count}</span>
                             </td>    
                             <td class="border">${toEuro(element.price)}</td>
-                            <td class="border text-right">${toEuro(element.price * element.count)}</td>
+                            <td class="border text-right">${toEuro(
+                              element.price * element.count
+                            )}</td>
                         </tr>
                     `;
-                });
-    
-            
-     content += `<tr class="bg-light">
+});
+
+content += `<tr class="bg-light">
                     <td colspan="4" class="text-right"><strong>Total</strong></td>
-                    <td class="border bg-light text-right"><strong>${toEuro(total)}€</strong></td>
+                    <td class="border bg-light text-right"><strong>${toEuro(
+                      total
+                    )}€</strong></td>
                     </tr>
                     </tbody>
                     <tfoot>
@@ -108,31 +113,29 @@ let content = `
     </article>
 </section>`;
 
-let controllerView = new ControllerView()
-controllerView.render('main', content)
+let controllerView = new ControllerView();
+controllerView.render("main", content);
 
+window.addEventListener("DOMContentLoaded", () => {
+  let formValide;
+  document.querySelector("#submit").disabled = true;
+  document.querySelectorAll("input").forEach((element) => {
+    formValide = formHandler.formValidate(
+      element,
+      element.getAttribute("type")
+    );
+  });
 
+  document.querySelector("form").addEventListener("submit", (event) => {
+    event.preventDefault();
 
-window.addEventListener('DOMContentLoaded', ()=>{
-    let formValide
-    document.querySelector("#submit").disabled = true
-    document.querySelectorAll('input').forEach(element=>{
-        formValide = formHandler.formValidate(element, element.getAttribute('type'))
-    })
-   
-    document.querySelector('form').addEventListener('submit',(event)=>{
-        event.preventDefault()
-
-        formHandler.sendOrder('input', products)
-                    .then( response => response.json())
-                    .then(order => {
-                        localStorage.setItem('lastOrder', JSON.stringify(order))
-                        window.location.href = "./confirm.html"
-                        })
-                    .then(err => console.error(err))
-
-    })
-    
-    
-})
-
+    formHandler
+      .sendOrder("input", products)
+      .then((response) => response.json())
+      .then((order) => {
+        localStorage.setItem("lastOrder", JSON.stringify(order));
+        window.location.href = "./confirm.html";
+      })
+      .then((err) => console.error(err));
+  });
+});
